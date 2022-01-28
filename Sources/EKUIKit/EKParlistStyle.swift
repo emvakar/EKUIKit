@@ -1,8 +1,9 @@
 //
 //  EKParlistStyle.swift
+//  EKUIKit
 //  
-//
-//  Created by Денис Васильев on 18.12.2021.
+//  Created by Emil Karimov on 28.01.2022.
+//  Copyright © 2022 Emil Karimov. All rights reserved.
 //
 
 import UIKit

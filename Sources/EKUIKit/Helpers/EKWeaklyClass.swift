@@ -9,6 +9,7 @@
 public class Weak<T> {
 
     weak private var value: AnyObject?
+
     public var weak: T? {
         return value as? T
     }
@@ -16,4 +17,5 @@ public class Weak<T> {
     public init<T: AnyObject>(_ value: T) {
         self.value = value
     }
+    
 }

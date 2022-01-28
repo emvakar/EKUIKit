@@ -8,13 +8,20 @@
 
 import Foundation
 
+/// Helps with delay and back and main queue.
 public class DispatchHelper {
 
+    /// Execute your code after N seconds.
+    /// - Parameters:
+    ///   - delay: in seconds.
+    ///   - closure: your closure.
     public class func after(_ delay: Double, closure: @escaping () -> Void) {
         let when = DispatchTime.now() + delay
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
     }
 
+    /// Execute on main queue.
+    /// - Parameter closure: your closure.
     public class func mainQueue(closure: @escaping () -> Void) {
         if Thread.isMainThread {
             closure()
@@ -23,6 +30,8 @@ public class DispatchHelper {
         }
     }
 
+    /// Execute on background queue.
+    /// - Parameter closure: your closure.
     public class func backgroundQueue(closure: @escaping () -> Void) {
         DispatchQueue.global(qos: .background).async(execute: closure)
     }

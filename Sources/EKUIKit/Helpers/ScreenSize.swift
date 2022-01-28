@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Screen sizes and iphones famaly
 public enum ScreenSize {
 
     public static let bounds: CGRect = (UIScreen.main.bounds)
