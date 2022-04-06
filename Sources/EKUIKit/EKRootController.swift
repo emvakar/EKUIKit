@@ -46,13 +46,13 @@ open class EKRootViewController<DeeplinkType>: UIViewController, EKRootViewContr
         }
     }
 
-    open var splashScreen: UIViewController { printLog(Self.self, "a splashScreen"); return UIViewController() }
-    open var loginScreen: UIViewController { printLog(Self.self, "a loginScreen"); return UIViewController() }
-    open var logoutScreen: UIViewController { printLog(Self.self, "a logoutScreen"); return UIViewController() }
-    open var mainScreen: UIViewController { printLog(Self.self, "a mainScreen"); return UIViewController() }
+    open var splashScreen: UIViewController { logger.info("a splashScreen"); return UIViewController() }
+    open var loginScreen: UIViewController { logger.info("a loginScreen"); return UIViewController() }
+    open var logoutScreen: UIViewController { logger.info("a logoutScreen"); return UIViewController() }
+    open var mainScreen: UIViewController { logger.info("a mainScreen"); return UIViewController() }
     open var onboardingScreen: UIViewController? { return nil }
 
-    open var initialScreen: UIViewController { printLog(Self.self, "a initialScreen"); return splashScreen }
+    open var initialScreen: UIViewController { logger.info("a initialScreen"); return splashScreen }
 
     open var shouldShowOnboardingBeforeMainScreen: Bool = true
 
@@ -77,11 +77,11 @@ open class EKRootViewController<DeeplinkType>: UIViewController, EKRootViewContr
 
     open func showLoginScreen() {
         if currentType == .onboarding/*, !SettingsService.shared.isOnboardingComplete */ {
-            printLog(Self.self, "⚠️ onboarding is opened, cant show login")
+            logger.warning("⚠️ onboarding is opened, cant show login")
             return
         }
         if currentType == .login {
-            printLog(Self.self, "⚠️ Don't show login twice")
+            logger.warning("⚠️ Don't show login twice")
             return
         }
         currentType = .login
@@ -92,7 +92,7 @@ open class EKRootViewController<DeeplinkType>: UIViewController, EKRootViewContr
     open func showOnboardingScreen(_ trainsition: TransitionAnimation = .none) -> Bool {
         guard let new = onboardingScreen else { return false }
         if currentType == .onboarding {
-            printLog(Self.self, "⚠️ Don't show onboarding twice")
+            logger.warning("⚠️ Don't show onboarding twice")
             return false
         }
         currentType = .onboarding
@@ -107,11 +107,11 @@ open class EKRootViewController<DeeplinkType>: UIViewController, EKRootViewContr
 
     open func switchToLogout(_ trainsition: TransitionAnimation) {
         if currentType == .onboarding/*, !SettingsService.shared.isOnboardingComplete */ {
-            printLog(Self.self, "⚠️ onboarding is opened, cant show login")
+            logger.warning("⚠️ onboarding is opened, cant show login")
             return
         }
         if currentType == .logout {
-            printLog(Self.self, "⚠️ Don't call switch to logout twice")
+            logger.warning("⚠️ Don't call switch to logout twice")
             return
         }
         currentType = .logout
@@ -127,14 +127,14 @@ open class EKRootViewController<DeeplinkType>: UIViewController, EKRootViewContr
 
     open func switchToMainScreen() {
         if currentType == .onboarding/*, !SettingsService.shared.isOnboardingComplete */ {
-            printLog(Self.self, "⚠️ onboarding is opened, cant show main screen")
+            logger.warning("⚠️ onboarding is opened, cant show main screen")
             return
         }
         if currentType == .main {
-            printLog(Self.self, "⚠️ Don't call switch to main screen twice")
+            logger.warning("⚠️ Don't call switch to main screen twice")
             return
         }
-        if shouldShowOnboardingBeforeMainScreen, showOnboardingScreen() { printLog(Self.self, "wrong"); return }
+        if shouldShowOnboardingBeforeMainScreen, showOnboardingScreen() { logger.warning("wrong"); return }
         currentType = .main
         animateFadeTransition(to: mainScreen) { [weak self] in
             if let deeplink = self?.deeplink {
@@ -211,4 +211,5 @@ open class EKRootViewController<DeeplinkType>: UIViewController, EKRootViewContr
         window?.rootViewController = self
         window?.makeKeyAndVisible()
     }
+    
 }

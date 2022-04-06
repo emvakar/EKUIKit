@@ -31,7 +31,7 @@ public enum ScreenSize {
     public static let topOffset: CGFloat = isIphoneXFamily ? 24.0 : 0.0
     public static let bottomOffset: CGFloat = isIphoneXFamily ? 34.0 : 0.0
 
-    public static let statusBarSize = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.windowScene?.statusBarManager?.statusBarFrame.size ?? .zero
+    public static let statusBarSize = UIApplication.shared.keyWindowInConnectedScenes?.windowScene?.statusBarManager?.statusBarFrame.size ?? .zero
     public static let statusBarHeight = statusBarSize.height
 
     public static let tabBarHeight: CGFloat = 49
