@@ -10,4 +10,19 @@ import UIKit
 
 public class Label: UILabel {
 
+    public static func make(with text: String?, color: UIColor = .black, font: UIFont? = nil, textAlignment: NSTextAlignment = .left) -> Label {
+        
+        let label = Label()
+
+        label.textColor = color
+        label.textAlignment = textAlignment
+        label.numberOfLines = 0
+        
+        if let font = font {
+            label.font = font
+        }
+        label.text = text
+        return label
+    }
+    
 }
