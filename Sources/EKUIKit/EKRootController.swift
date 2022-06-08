@@ -15,7 +15,7 @@ public protocol EKRootViewControllerable {
     var mainScreen: UIViewController { get }
     var onboardingScreen: UIViewController? { get }
 
-    func showLoginScreen()
+    func showLoginScreen(onboarding complete: Bool)
     func showOnboardingScreen(_ trainsition: TransitionAnimation) -> Bool
     func switchToLogout(_ trainsition: TransitionAnimation)
     func switchToMainScreen()
@@ -75,8 +75,8 @@ open class EKRootViewController<DeeplinkType>: UIViewController, EKRootViewContr
         current.didMove(toParent: self)
     }
 
-    open func showLoginScreen() {
-        if currentType == .onboarding/*, !SettingsService.shared.isOnboardingComplete */ {
+    open func showLoginScreen(onboarding complete: Bool = false) {
+        if currentType == .onboarding, !complete {
             logger.warning("⚠️ onboarding is opened, cant show login")
             return
         }
