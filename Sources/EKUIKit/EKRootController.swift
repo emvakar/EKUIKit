@@ -125,7 +125,7 @@ open class EKRootViewController<DeeplinkType>: UIViewController, EKRootViewContr
         }
     }
 
-    open func switchToMainScreen(onboarding complete: Bool) {
+    open func switchToMainScreen(onboarding complete: Bool = false) {
         if currentType == .onboarding, !complete {
             logger.warning("⚠️ onboarding is opened, cant show main screen")
             return
